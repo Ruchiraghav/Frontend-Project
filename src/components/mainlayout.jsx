@@ -13,6 +13,7 @@ function MainLayout() {
          <a href="/students" target="_blank">VIEW STUDENT</a></li>
         <li><Link to="/register">REGISTER</Link></li> 
         <li><Link to="/login">LOGIN</Link></li>
+      
       </ul>
     </div>
   );

@@ -1,22 +1,70 @@
-import React from "react";
+import React, { useState } from "react";
+import "./user.css";
+import { useNavigate } from "react-router-dom";
+
+import { getUsers } from "../api/userapi";
 
 function User() {
+  const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
 
-    const [students, setStudents] = useState([]);
+  const handleGetUsers = async () => {
+    const data = await getUsers();
+    setUsers(data);
+  };
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:3000/students")
-      .then((response) => setStudents(response.data))
-      .catch((error) => console.error("Axios error:", error));
-  }, []);
-  
   return (
     <div>
-      <h2>User Page</h2>
-      <p>This page is under development 👩‍💻</p>
+      <button onClick={handleGetUsers}>Get Users</button>
+      <div className="user-list">
+        {users.map((user) => (
+          <div
+            key={user.id}
+            className="user-card"
+            style={{
+              border: "1px solid #ddd",
+              padding: "1rem",
+              margin: "1rem 0",
+            }}
+          >
+            <h2>{user.name}</h2>
+            <p>
+              <strong>Username:</strong> {user.username}
+            </p>
+            <p>
+              <strong>Email:</strong> {user.email}
+            </p>
+            <p>
+              <strong>Phone:</strong> {user.phone}
+            </p>
+            <p>
+              <strong>Website:</strong> {user.website}
+            </p>
+            <p>
+              <strong>Company:</strong> {user.company?.name} —{" "}
+              {user.company?.catchPhrase}
+            </p>
+            <p>
+              <strong>Address:</strong> {user.address?.suite},{" "}
+              {user.address?.street}, {user.address?.city} (
+              {user.address?.zipcode})
+            </p>
+
+            {/* Navigate to Posts */}
+            <button onClick={() => navigate(`/user/${user.id}/posts`)}>
+              View Posts
+            </button>
+
+            {/* Navigate to Albums */}
+            <button onClick={() => navigate(`/user/${user.id}/albums`)}>
+              View Albums
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
 
 export default User;
+

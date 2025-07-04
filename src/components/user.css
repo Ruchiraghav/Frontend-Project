@@ -1,0 +1,44 @@
+/* Container for the user cards */
+.user-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.user-card {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 8px;
+  background: #262323;
+  box-sizing: border-box;
+}
+
+@media only screen and (max-width: 768px) {
+  .user-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .user-list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.user-card button {
+  margin: 0.5rem 0.5rem 0 0;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border: none;
+  background: #2e5987;
+  color: white;
+  border-radius: 4px;
+}
+
+.user-card button:hover {
+  background: #0056b3;
+}
+
+body {
+  overflow: none;
+}
