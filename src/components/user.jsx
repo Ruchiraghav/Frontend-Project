@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./user.css";
 import { useNavigate } from "react-router-dom";
-
 import { getUsers } from "../api/userapi";
 
 function User() {
@@ -15,11 +14,11 @@ function User() {
 
   return (
     <div>
-      <button onClick={handleGetUsers}>Get Users</button>
+      <button onClick={handleGetUsers}>Get User Profiles</button>
       <div className="user-list">
         {users.map((user) => (
           <div
-            key={user.id}
+            key={user._id}
             className="user-card"
             style={{
               border: "1px solid #ddd",
@@ -28,36 +27,19 @@ function User() {
             }}
           >
             <h2>{user.name}</h2>
-            <p>
-              <strong>Username:</strong> {user.username}
-            </p>
-            <p>
-              <strong>Email:</strong> {user.email}
-            </p>
-            <p>
-              <strong>Phone:</strong> {user.phone}
-            </p>
-            <p>
-              <strong>Website:</strong> {user.website}
-            </p>
-            <p>
-              <strong>Company:</strong> {user.company?.name} —{" "}
-              {user.company?.catchPhrase}
-            </p>
-            <p>
-              <strong>Address:</strong> {user.address?.suite},{" "}
-              {user.address?.street}, {user.address?.city} (
-              {user.address?.zipcode})
-            </p>
-
-            {/* Navigate to Posts */}
+            <p><strong>Username:</strong> {user.username}</p>
+            <p><strong>Email:</strong> {user.email}</p>
+            <p><strong>Phone:</strong> {user.phone}</p>
+            <p><strong>Website:</strong> {user.website}</p>
+            {user.company && <p><strong>Company:</strong> {user.company.name}</p>}
+            {user.address && (
+              <p>
+                <strong>Address:</strong> {user.address.street}, {user.address.city}
+              </p>
+            )}
+            
             <button onClick={() => navigate(`/user/${user.id}/posts`)}>
               View Posts
-            </button>
-
-            {/* Navigate to Albums */}
-            <button onClick={() => navigate(`/user/${user.id}/albums`)}>
-              View Albums
             </button>
           </div>
         ))}
@@ -67,4 +49,7 @@ function User() {
 }
 
 export default User;
+
+
+
 

@@ -1,5 +1,5 @@
-import React from "react";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+ import React from "react";
+ import { Routes, Route, BrowserRouter } from "react-router-dom";
 
  import Home from "./components/home";
  import Feature from "./components/feature";
@@ -9,15 +9,18 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
  import Loginpage from "./components/loginpage";
  import PrivateRoute from "./components/PrivateRoute";
  import NotFound from "./components/notfound";
-//import FetchExample from "./api/fetchexample.jsx";
-import Users from "./components/user";
-import UserPosts from "./components/userpost";
-import UserAlbums from "./components/UserAlbum";
-import AlbumPhotos from "./components/AlbumPhotos";
+ //import FetchExample from "./api/fetchexample.jsx";
+ import Users from "./components/user";
+ import UserPosts from "./components/userpost";
+//  import UserAlbums from "./components/UserAlbum";
+//  import AlbumPhotos from "./components/AlbumPhotos";
+ import Comments from "./components/comments";
+ import { getUsers } from "./api/userapi";
+
 
 function App() {
   return (
-  
+   <BrowserRouter>
      <Routes>
        <Route path="/register" element={<Register />} />
        <Route path="/login" element={<Loginpage />} />
@@ -32,7 +35,7 @@ function App() {
           </PrivateRoute>
         }
        />
-        <Route
+         <Route
        path="/user/:userId/posts"
        element={
           <PrivateRoute>
@@ -40,6 +43,15 @@ function App() {
           </PrivateRoute>
         }
        />
+        <Route
+       path="/posts/:postId/comments"
+       element={
+          <PrivateRoute>
+            <Comments />
+          </PrivateRoute>
+        }
+       />
+       {/*
        <Route
        path="/user/:userId/albums"
        element={
@@ -55,7 +67,7 @@ function App() {
             <AlbumPhotos />
           </PrivateRoute>
         }
-       />
+       /> */}
       <Route
         path="/feature"
         element={
@@ -68,7 +80,7 @@ function App() {
          path="/user"
          element={
            <PrivateRoute>
-              <div> <h4>JSONPlaceholder Example</h4>
+              <div> <h4>Profiles</h4>
                  <Users />
                 </div>
            </PrivateRoute>
@@ -84,6 +96,7 @@ function App() {
        />
          <Route path="*" element={<NotFound />} />
      </Routes>
+      </BrowserRouter>
   );
 }
 
